@@ -119,7 +119,9 @@
         if (pass) {
             if ([self.passLibrary containsPass:pass]) {
                 UA_LDEBUG(@"Passbook library already contains the pass %@, skipping add", pass.localizedName);
-                completionHandler([UAActionResult resultWithValue:nil withFetchResult:UAActionFetchResultNewData]);
+                NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Passbook library already contains the pass", nil)};
+                NSError *error = [NSError errorWithDomain:@"UAWalletAction" code:9999 userInfo:userInfo];
+                completionHandler([UAActionResult resultWithError:error withFetchResult:UAActionFetchResultNoData]);
                 return;
             }
 
