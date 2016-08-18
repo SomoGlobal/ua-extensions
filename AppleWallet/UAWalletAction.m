@@ -122,7 +122,9 @@
                 UA_LDEBUG(@"%@",errorString);
                 NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(errorString, nil)};
                 NSError *error = [NSError errorWithDomain:@"UAWalletAction" code:9999 userInfo:userInfo];
-                completionHandler([UAActionResult resultWithError:error withFetchResult:UAActionFetchResultNoData]);
+                if (completionHandler) {
+                    completionHandler([UAActionResult resultWithError:error withFetchResult:UAActionFetchResultNoData]);
+                }
                 return;
             }
 
